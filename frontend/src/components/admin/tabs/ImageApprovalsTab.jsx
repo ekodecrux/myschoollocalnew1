@@ -45,11 +45,12 @@ const ImageApprovalsTab = ({
                       src={image.url} 
                       alt="Preview" 
                       style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 4 }}
+                      onError={(e) => { e.target.src = 'https://via.placeholder.com/60?text=No+Image'; }}
                     />
                   </TableCell>
-                  <TableCell>{image.submittedBy || '-'}</TableCell>
+                  <TableCell>{image.submitted_by_name || image.submittedBy || image.submitted_by_email || '-'}</TableCell>
                   <TableCell>{image.category || '-'}</TableCell>
-                  <TableCell>{image.createdAt ? new Date(image.createdAt).toLocaleDateString() : '-'}</TableCell>
+                  <TableCell>{image.submitted_at || image.createdAt ? new Date(image.submitted_at || image.createdAt).toLocaleDateString() : '-'}</TableCell>
                   <TableCell>
                     <Button 
                       size="small" 

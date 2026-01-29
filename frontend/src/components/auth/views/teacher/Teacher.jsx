@@ -133,12 +133,18 @@ export default function Teacher() {
         { headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'multipart/form-data' } }
       );
       setBulkResults(response.data);
-      setSnackbar({ open: true, message: `Created ${response.data.success_count || 0} teachers successfully!`, severity: 'success' });
-      // Close dialog and reset after successful upload
-      setBulkUploadOpen(false);
-      setBulkFile(null);
-      setBulkResults(null);
-      handleFetchData();
+      // Only close dialog if no errors - Issue 4: Show error reasons
+      if (response.data.error_count === 0 || !response.data.errors || response.data.errors.length === 0) {
+        setSnackbar({ open: true, message: `Created ${response.data.success_count || 0} teachers successfully!`, severity: 'success' });
+        setBulkUploadOpen(false);
+        setBulkFile(null);
+        setBulkResults(null);
+        handleFetchData();
+      } else {
+        // Keep dialog open to show errors
+        setSnackbar({ open: true, message: `Upload completed with ${response.data.error_count || 0} errors. Check details below.`, severity: 'warning' });
+        handleFetchData();
+      }
     } catch (error) {
       setSnackbar({ open: true, message: error.response?.data?.detail || 'Upload failed', severity: 'error' });
     }

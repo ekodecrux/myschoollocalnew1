@@ -1626,6 +1626,8 @@ async def list_users_by_role(
             {"school_code": {"$regex": f".*{re.escape(search_term)}.*", "$options": "i"}},
             {"teacher_code": {"$regex": f".*{re.escape(search_term)}.*", "$options": "i"}},
             {"student_code": {"$regex": f".*{re.escape(search_term)}.*", "$options": "i"}},
+            {"city": {"$regex": f".*{re.escape(search_term)}.*", "$options": "i"}},
+            {"state": {"$regex": f".*{re.escape(search_term)}.*", "$options": "i"}},
         ]
         query = {"$and": [query, {"$or": search_conditions}]}
     
@@ -4806,10 +4808,10 @@ async def submit_image_for_approval(
 ):
     """Submit an image for Super Admin approval. After approval, it will be added to the resource library."""
     
-    # Validate file type
-    allowed_types = ["image/jpeg", "image/png", "image/gif", "image/webp"]
+    # Validate file type - Issue 27: Allow PDF files
+    allowed_types = ["image/jpeg", "image/png", "image/gif", "image/webp", "application/pdf"]
     if file.content_type not in allowed_types:
-        raise HTTPException(status_code=400, detail=f"File type {file.content_type} not allowed. Only images are accepted.")
+        raise HTTPException(status_code=400, detail=f"File type {file.content_type} not allowed. Only images and PDFs are accepted.")
     
     # Read file content
     content = await file.read()
