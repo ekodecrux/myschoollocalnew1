@@ -358,6 +358,13 @@ export const SignUp = React.forwardRef((props, ref) => {
                       flex: 1, 
                       minWidth: '120px',
                       marginLeft: '8px',
+                      '&:focus': {
+                        outline: 'none',
+                      },
+                      '&:focus-visible': {
+                        outline: '2px solid #5FCBF3',
+                        outlineOffset: '2px',
+                      }
                     }}
                   >
                     Sign Up

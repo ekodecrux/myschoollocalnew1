@@ -45,10 +45,10 @@ export default function SchoolRegister() {
     setSearchText(e.target.value);
   }
   
-  // Download Template
+  // Download Template - Issue 2: Changed admin_email to school_email, postal_code is now mandatory
   const handleDownloadTemplate = () => {
-    const headers = ['school_code', 'school_name*', 'admin_email*', 'principal_name*', 'mobile_number*', 'address', 'city', 'state', 'postal_code'];
-    const sample = ['SCH001', 'ABC Public School', 'admin@abc.com', 'Dr. Smith', '9876543210', '123 Main St', 'Mumbai', 'Maharashtra', '400001'];
+    const headers = ['school_code', 'school_name*', 'school_email*', 'principal_name*', 'mobile_number*', 'postal_code*', 'address', 'city', 'state'];
+    const sample = ['SCH001', 'ABC Public School', 'school@abc.com', 'Dr. Smith', '9876543210', '400001', '123 Main St', 'Mumbai', 'Maharashtra'];
     const csvContent = headers.join(',') + '\n' + sample.join(',');
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -263,9 +263,9 @@ export default function SchoolRegister() {
         <DialogTitle>Bulk Upload Schools</DialogTitle>
         <DialogContent>
           <Alert severity="info" sx={{ mb: 2 }}>
-            <strong>Required columns (marked with *):</strong> school_name, admin_email, principal_name, mobile_number<br/>
-            <strong>Optional columns:</strong> school_code, address, city, state, postal_code<br/><br/>
-            Auto-generated passwords will be sent to each school admin&apos;s email.
+            <strong>Required columns (marked with *):</strong> school_name, school_email, principal_name, mobile_number, postal_code<br/>
+            <strong>Optional columns:</strong> school_code, address, city, state<br/><br/>
+            Auto-generated passwords will be sent to each school&apos;s email.
           </Alert>
           <Button variant="outlined" onClick={handleDownloadTemplate} sx={{ mb: 2 }}>
             Download Template

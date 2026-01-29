@@ -41,9 +41,17 @@ const UploadFile = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Validate required fields
-        if (!fileData.title || !fileData.category || !selectedFile) {
-            displaySnackbar({ message: 'Please fill in all required fields', severity: 'error' });
+        // Validate required fields - Issue 28: Prevent blank page on empty submission
+        if (!selectedFile) {
+            displaySnackbar({ message: 'Please select a file to upload', severity: 'error' });
+            return;
+        }
+        if (!fileData.title || fileData.title.trim() === '') {
+            displaySnackbar({ message: 'Please enter an image title', severity: 'error' });
+            return;
+        }
+        if (!fileData.category || fileData.category.trim() === '') {
+            displaySnackbar({ message: 'Please enter a category', severity: 'error' });
             return;
         }
         

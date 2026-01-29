@@ -222,10 +222,11 @@ export default function Teacher() {
                 value={selectedSchool}
                 label="Filter by School"
                 onChange={handleSchoolFilterChange}
+                displayEmpty
                 renderValue={(selected) => {
-                  if (!selected) return 'All Schools';
-                  const school = schools.find(s => s.code === selected);
-                  return school ? school.name : selected;
+                  if (!selected || selected === '') return <span style={{ color: '#333' }}>All Schools</span>;
+                  const school = schools.find(s => s.code === selected || s.schoolCode === selected);
+                  return school ? `${school.name} (${school.code || school.schoolCode})` : selected;
                 }}
               >
                 <MenuItem value="">All Schools</MenuItem>

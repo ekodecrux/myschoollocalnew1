@@ -199,10 +199,16 @@ export const teacherColumns = [
     editable: false,
     sortable: true,
     renderCell: (params) => {
+      const city = params.row.city || '';
+      const state = params.row.state || '';
+      if (!city && !state) return <div>-</div>;
+      const fullText = `${city}${city && state ? ', ' : ''}${state}`;
       return (
-        <div>
-          {params.row.city || ''}{params.row.city && params.row.state ? ', ' : ''}{params.row.state || ''}
-        </div>
+        <Tooltip title={fullText} arrow placement="top">
+          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', cursor: 'pointer' }}>
+            {fullText}
+          </div>
+        </Tooltip>
       );
     },
   },

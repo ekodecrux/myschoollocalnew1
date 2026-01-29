@@ -325,8 +325,8 @@ const AcademicFilter = ({ loadImages }) => {
                         </div>
                     )}
                     
-                    {/* Show message when no filters to display - but only for CLASS pages, not Image Bank */}
-                    {!selectedSubject && !location.pathname.toLowerCase().includes('imagebank') && (
+                    {/* Show message when no filters to display - but only for CLASS pages, not Image Bank or Sections */}
+                    {!selectedSubject && !location.pathname.toLowerCase().includes('imagebank') && !location.pathname.toLowerCase().includes('sections') && !location.pathname.toLowerCase().includes('one-click') && (
                         <div className="filterHint">
                             Select a subject from the menu above to see more filters
                         </div>

@@ -68,14 +68,14 @@ export default function StudentRecordTable() {
     }
   }, [userRole, accessToken]);
   
-  // Download Template
+  // Download Template - Issue 10: Added optional columns address, city, state
   const handleDownloadTemplate = () => {
     const headers = userRole === 'SUPER_ADMIN' 
-      ? ['name*', 'email*', 'mobile_number*', 'school_code*', 'teacher_code*', 'class_name*', 'section*', 'parent_name*', 'roll_number*']
-      : ['name*', 'email*', 'mobile_number*', 'teacher_code*', 'class_name*', 'section*', 'parent_name*', 'roll_number*'];
+      ? ['name*', 'email*', 'mobile_number*', 'school_code*', 'teacher_code*', 'class_name*', 'section*', 'parent_name*', 'roll_number*', 'address', 'city', 'state']
+      : ['name*', 'email*', 'mobile_number*', 'teacher_code*', 'class_name*', 'section*', 'parent_name*', 'roll_number*', 'address', 'city', 'state'];
     const sample = userRole === 'SUPER_ADMIN'
-      ? ['John Student', 'student@school.com', '9876543210', 'SCH001', 'TCH001', 'Class 5', 'A', 'John Parent', '101']
-      : ['John Student', 'student@school.com', '9876543210', 'TCH001', 'Class 5', 'A', 'John Parent', '101'];
+      ? ['John Student', 'student@school.com', '9876543210', 'SCH001', 'TCH001', 'Class 5', 'A', 'John Parent', '101', '123 Main St', 'Mumbai', 'Maharashtra']
+      : ['John Student', 'student@school.com', '9876543210', 'TCH001', 'Class 5', 'A', 'John Parent', '101', '123 Main St', 'Mumbai', 'Maharashtra'];
     const csvContent = headers.join(',') + '\n' + sample.join(',');
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -227,10 +227,11 @@ export default function StudentRecordTable() {
                 value={selectedSchool}
                 label="Filter by School"
                 onChange={handleSchoolFilterChange}
+                displayEmpty
                 renderValue={(selected) => {
-                  if (!selected) return 'All Schools';
-                  const school = schools.find(s => s.code === selected);
-                  return school ? school.name : selected;
+                  if (!selected || selected === '') return <span style={{ color: '#333' }}>All Schools</span>;
+                  const school = schools.find(s => s.code === selected || s.schoolCode === selected);
+                  return school ? `${school.name} (${school.code || school.schoolCode})` : selected;
                 }}
               >
                 <MenuItem value="">All Schools</MenuItem>

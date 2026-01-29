@@ -126,7 +126,14 @@ const Subscription = () => {
           return;
         }
 
-        // Teachers/Students: Only if self-registered (no school_code)
+        // Students: Never show subscription page (Issue 23)
+        if (userRole === 'STUDENT') {
+          setCanAccess(false);
+          setAccessMessage("Subscription plans are managed by your School or Teacher. Please contact them for credit requests.");
+          return;
+        }
+
+        // Teachers: Only if self-registered (no school_code)
         if (canAccessSubscription) {
           setCanAccess(true);
         } else {
@@ -280,9 +287,9 @@ const Subscription = () => {
             <h2 className="SubscriptionTopHeading">Choose Your Subscription</h2>
           </div>
 
-          {/* Current Plan Display */}
+          {/* Current Plan Display - Issue 21: Added margin bottom to prevent overlap */}
           {currentPlan && (
-            <Box sx={{ mb: 4, maxWidth: 800, mx: 'auto' }}>
+            <Box sx={{ mb: 5, maxWidth: 800, mx: 'auto' }}>
               <Paper elevation={3} sx={{ p: 3, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white', borderRadius: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 2 }}>
                   <Box>
@@ -403,9 +410,16 @@ const Subscription = () => {
                         fontWeight: 'bold',
                         py: 1.5,
                         '&:hover': {
-                          backgroundColor: currentPlan === plan.id ? 'transparent' : plan.color,
-                          opacity: 0.9
-                        }
+                          backgroundColor: currentPlan === plan.id ? 'rgba(0,0,0,0.04)' : plan.color,
+                          opacity: currentPlan === plan.id ? 1 : 0.85,
+                          transform: 'scale(1.02)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                        },
+                        '&:active': {
+                          transform: 'scale(0.98)',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                        },
+                        transition: 'all 0.2s ease'
                       }}
                       endIcon={<EastIcon />}
                       onClick={() => handlePayment(plan)}
