@@ -850,9 +850,12 @@ const MicroScheduler = () => {
           <Button size="small" variant={viewMode === 'year' ? 'contained' : 'outlined'} startIcon={<YearIcon />}
             onClick={() => setViewMode('year')}>Year</Button>
           <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
-          <Button size="small" startIcon={<SaveIcon />} onClick={() => { setEditingTemplate(null); setScheduleName(''); setSaveDialog(true); }}>Save</Button>
-          <Button size="small" startIcon={<DownloadIcon />} onClick={handleExport}>Export</Button>
-          <Button size="small" startIcon={<PrintIcon />} onClick={handlePrint}>Print</Button>
+          <Button size="small" variant="outlined" startIcon={<SaveIcon />} onClick={() => { setEditingTemplate(null); setScheduleName(''); setSaveDialog(true); }}
+            sx={{ color: '#1976d2', borderColor: '#1976d2', '&:hover': { backgroundColor: '#1976d2', color: '#fff', borderColor: '#1976d2' } }}>Save</Button>
+          <Button size="small" variant="outlined" startIcon={<DownloadIcon />} onClick={handleExport}
+            sx={{ color: '#1976d2', borderColor: '#1976d2', '&:hover': { backgroundColor: '#1976d2', color: '#fff', borderColor: '#1976d2' } }}>Export</Button>
+          <Button size="small" variant="outlined" startIcon={<PrintIcon />} onClick={handlePrint}
+            sx={{ color: '#1976d2', borderColor: '#1976d2', '&:hover': { backgroundColor: '#1976d2', color: '#fff', borderColor: '#1976d2' } }}>Print</Button>
         </Paper>
         {/* Schedule Content */}
         <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>

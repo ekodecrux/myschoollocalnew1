@@ -94,11 +94,38 @@ const Sections = () => {
             return 'ACADEMIC/IMAGE BANK';
         }
         
+        // Issue 11: Complete path mapping for all One Click Resource Center sections
         const pathMap = {
             'comics': 'one_click_resource_centre/comics',
             'rhymes': 'one_click_resource_centre/rhymes',
+            'visual-worksheets': 'one_click_resource_centre/visual worksheets',
+            'visual worksheets': 'one_click_resource_centre/visual worksheets',
+            'moral-stories': 'one_click_resource_centre/moral stories',
+            'moral stories': 'one_click_resource_centre/moral stories',
+            'flash-cards': 'one_click_resource_centre/flash cards',
+            'flash cards': 'one_click_resource_centre/flash cards',
+            'gk-science': 'one_click_resource_centre/gk & science',
+            'gk & science': 'one_click_resource_centre/gk & science',
+            'learn-hand-writing': 'one_click_resource_centre/learn hand writing',
+            'learn hand writing': 'one_click_resource_centre/learn hand writing',
+            'project-charts': 'one_click_resource_centre/project charts',
+            'project charts': 'one_click_resource_centre/project charts',
+            'puzzles-riddles': 'one_click_resource_centre/puzzels & riddles',
+            'puzzles & riddles': 'one_click_resource_centre/puzzels & riddles',
+            'smart-wall': 'one_click_resource_centre/smart wall',
+            'smart wall': 'one_click_resource_centre/smart wall',
+            'dictionary': 'one_click_resource_centre/dictionary'
         };
-        return pathMap[menuItem] || getOnClickPath().split('/').slice(0, 2).join('/');
+        
+        let basePath = pathMap[menuItem] || getOnClickPath().split('/').slice(0, 2).join('/');
+        
+        // If there's a sub-menu item, append it
+        if (subMenuItem && pathMap[menuItem]) {
+            const formattedSubMenuItem = subMenuItem.replace(/-/g, ' ').toUpperCase();
+            basePath = `${basePath}/${formattedSubMenuItem}`;
+        }
+        
+        return basePath;
     };
     
     // Function to handle loading of images - moved before handleFilterClick to avoid hoisting issues

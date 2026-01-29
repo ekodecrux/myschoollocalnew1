@@ -59,7 +59,7 @@ const TopNavbar = (props) => {
     }
   }, [accessToken]);
 
-  // Fetch credits
+  // Fetch credits with auto-refresh - Issue 20
   useEffect(() => {
     const fetchCredits = async () => {
       if (!accessToken) return;
@@ -84,7 +84,21 @@ const TopNavbar = (props) => {
         console.log("Error fetching credits:", e);
       }
     };
+    
+    // Initial fetch
     fetchCredits();
+    
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(fetchCredits, 30000);
+    
+    // Listen for credit update events
+    const handleCreditUpdate = () => fetchCredits();
+    window.addEventListener('creditsUpdated', handleCreditUpdate);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('creditsUpdated', handleCreditUpdate);
+    };
   }, [accessToken]);
 
   useEffect(() => {

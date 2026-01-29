@@ -140,17 +140,23 @@ const Menubar = (props) => {
   }
   const handleEnterKey = (e) => {
     if (e.keyCode === 13) {
+      // Issue 15: Trim and validate search text before navigating
+      const trimmedSearch = searchText.trim();
+      if (!trimmedSearch) {
+        return; // Don't navigate if search is empty
+      }
+      
       var path = location.pathname
         .split("/")
         .filter((el) => el)
         .filter((el) => el !== "views")[0];
       if (path === "result") {
-        navigate({ pathname: `/views/result`, search: `?text=${searchText}` });
+        navigate({ pathname: `/views/result`, search: `?text=${encodeURIComponent(trimmedSearch)}` });
         return;
       }
       navigate({
         pathname: `/views/${path}/result`,
-        search: `?text=${searchText}`,
+        search: `?text=${encodeURIComponent(trimmedSearch)}`,
       });
     }
   };
