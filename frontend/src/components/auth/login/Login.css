@@ -69,11 +69,7 @@
   align-items: center;
   font-size: 20px !important;
 }
-.loginContBtn:hover {
-  background-color: #7BA6FB !important;
-  box-shadow: unset !important;
-  border-radius: 4px !important;
-}
+/* Removed container hover - individual buttons should handle their own hover states */
 .loginTabBtn {
   border-radius: 8px 8px 0px 0px !important;
   box-shadow: unset !important;

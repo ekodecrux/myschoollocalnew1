@@ -144,55 +144,16 @@
     }
 }
 
-/* Fix for Cancel/Sign Up button styling */
+/* Fix for Cancel/Sign Up button styling - each button handles its own hover */
 .registerContBtn {
     display: flex;
     gap: 16px;
     margin-top: 10px;
 }
 
-.registerContBtn button {
-    flex: 1;
-    min-width: 120px;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.registerContBtn button:first-child {
-    margin-right: 8px;
-    border: 2px solid #1976d2;
-    background-color: transparent;
-    color: #1976d2;
-}
-
-.registerContBtn button:first-child:hover {
-    background-color: rgba(25, 118, 210, 0.04);
-    border-color: #1565c0;
-}
-
-.registerContBtn button:last-child {
-    margin-left: 8px;
-    background-color: #1976d2;
-    color: white;
-}
-
-.registerContBtn button:last-child:hover {
-    background-color: #1565c0;
-}
-
-/* Fix focus states to prevent both buttons highlighting */
-.registerContBtn button:focus {
-    outline: none;
-}
-
-.registerContBtn button:first-child:focus {
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.3);
-}
-
-.registerContBtn button:last-child:focus {
-    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.3);
+/* Prevent any container-level hover effects */
+.registerContBtn:hover {
+    background-color: transparent !important;
 }
 
 /* @media screen and  (max-width:425px) {
