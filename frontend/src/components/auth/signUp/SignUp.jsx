@@ -327,6 +327,7 @@ export const SignUp = React.forwardRef((props, ref) => {
                     color="inherit"
                     disableRipple
                     disableFocusRipple
+                    disableElevation
                     onClick={() => props.handleCloseModal()}
                     sx={{ 
                       flex: 1, 
@@ -335,6 +336,7 @@ export const SignUp = React.forwardRef((props, ref) => {
                       borderColor: '#ccc',
                       color: '#333',
                       marginRight: '8px',
+                      transition: 'background-color 0.2s, border-color 0.2s',
                       '&:hover': {
                         backgroundColor: 'rgba(0, 0, 0, 0.04)',
                         borderColor: '#999',
@@ -342,9 +344,14 @@ export const SignUp = React.forwardRef((props, ref) => {
                       '&:focus': {
                         outline: 'none',
                         boxShadow: 'none',
+                        backgroundColor: 'transparent',
                       },
                       '&:active': {
                         backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                      },
+                      '&.Mui-focusVisible': {
+                        outline: 'none',
+                        boxShadow: 'none',
                       }
                     }}
                   >
@@ -353,17 +360,28 @@ export const SignUp = React.forwardRef((props, ref) => {
                   <Button
                     variant="contained"
                     color="secondary"
+                    disableRipple
+                    disableFocusRipple
+                    disableElevation
                     onClick={handleUserRegister}
                     sx={{ 
                       flex: 1, 
                       minWidth: '120px',
                       marginLeft: '8px',
+                      transition: 'background-color 0.2s, transform 0.1s',
+                      '&:hover': {
+                        opacity: 0.9,
+                      },
                       '&:focus': {
                         outline: 'none',
+                        boxShadow: 'none',
                       },
-                      '&:focus-visible': {
-                        outline: '2px solid #5FCBF3',
-                        outlineOffset: '2px',
+                      '&:active': {
+                        transform: 'scale(0.98)',
+                      },
+                      '&.Mui-focusVisible': {
+                        outline: 'none',
+                        boxShadow: 'none',
                       }
                     }}
                   >
