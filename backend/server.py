@@ -2356,7 +2356,6 @@ async def add_user(
             raise HTTPException(status_code=403, detail="Admins can only add school staff and students")
     
     # Note: UserRole.SCHOOL doesn't exist - schools use SCHOOL_ADMIN role
-    # This check is redundant as SCHOOL_ADMIN is already handled above
     
     if user_role == UserRole.TEACHER:
         if request.user_role != UserRole.STUDENT:
@@ -4177,7 +4176,6 @@ async def fetch_images(body: dict, response: Response):
                     is_one_click_menu = True
     
     if is_one_click_menu:
-        # This is a One Click Resource Centre item accessed from main nav (PRINT-RICH/IMAGE BANK/ANIMALS)
         query["category"] = "ONE CLICK RESOURCE CENTRE"
         menu_lower = parts[1].lower().replace('_', ' ').replace('-', ' ')
         query["menu"] = menu_name_map.get(menu_lower, parts[1].upper())
@@ -5778,7 +5776,6 @@ async def verify_razorpay_payment(
             'razorpay_signature': request.razorpay_signature
         }
         
-        # This will raise an exception if signature is invalid
         razorpay_client.utility.verify_payment_signature(params_dict)
         
         # Find the order
